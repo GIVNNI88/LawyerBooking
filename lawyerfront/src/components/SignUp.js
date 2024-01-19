@@ -4,17 +4,17 @@ import { useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
   const [username, setUsername] = useState("");
-  
+
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   function signUp() {
-    if (username === "" || password === "" || email === "" ) {
+    if (username === "" || password === "" || email === "") {
       alert("אנא הכנס את כל השדות");
     } else {
       axios
-        .post("http://127.0.0.1:8000/base/signup/", {
+        .post("http://lawbooking.lawbooking.site:8000/base/signup/", {
           username: username,
           password: password,
           email: email,
@@ -66,7 +66,6 @@ export const SignUp = () => {
           placeholder="הזן כתובת אימייל.."
         />
       </div>
-
 
       <button className="btn" onClick={signUp}>
         הרשם

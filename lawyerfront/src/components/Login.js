@@ -12,7 +12,7 @@ export const Login = () => {
     username === "" || password === ""
       ? alert("!אנא הכנס נתונים")
       : axios
-          .post("http://127.0.0.1:8000/api/token/", {
+          .post("http://lawbooking.lawbooking.site:8000/api/token/", {
             username: username,
             password: password,
           })
@@ -36,7 +36,7 @@ export const Login = () => {
     refreshTokenInterval = setInterval(() => {
       axios
         .post(
-          "http://127.0.0.1:8000/api/token/refresh/",
+          "http://lawbooking.lawbooking.site:8000/api/token/refresh/",
           {
             refresh: JSON.parse(localStorage.getItem("Authorization")).refresh,
           },
@@ -53,7 +53,7 @@ export const Login = () => {
           clearInterval(refreshTokenInterval);
           navigate("/login");
         });
-    },60* 60 * 1000);
+    }, 60 * 60 * 1000);
   }
 
   return (

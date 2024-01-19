@@ -166,7 +166,7 @@ export const AddContract = ({ contracts }) => {
 
   //////////////////////////////create the event in google calendar////////////////////////////////////////////
 
-  const createEvent = (paymentName, dateTime, amount,text,customerName) => {
+  const createEvent = (paymentName, dateTime, amount, text, customerName) => {
     let user = getUserLocalStorage();
     let startDate = new Date(dateTime).toISOString().split("T")[0];
     let desData = `
@@ -254,11 +254,17 @@ export const AddContract = ({ contracts }) => {
     } else {
       handlePaymentName();
       payments.forEach((payment) => {
-        createEvent(payment.name, payment.date, payment.amount,text,customerName);
+        createEvent(
+          payment.name,
+          payment.date,
+          payment.amount,
+          text,
+          customerName
+        );
       });
       axios
         .post(
-          "http://127.0.0.1:8000/base/contracts/",
+          "http://lawbooking.lawbooking.site:8000/base/contracts/",
           {
             text: text,
             customerName: customerName,

@@ -21,7 +21,7 @@ const ContractList = () => {
 
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/base/contracts/",
+          "http://lawbooking.lawbooking.site:8000/base/contracts/",
           {
             headers: {
               "Content-Type": "application/json",
@@ -49,7 +49,7 @@ const ContractList = () => {
   const refreshContracts = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/base/contracts/",
+        "http://lawbooking.lawbooking.site:8000/base/contracts/",
         {
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const ContractList = () => {
   const markPaymentAsPaid = async (contractId, paymentId) => {
     try {
       await axios.patch(
-        `http://127.0.0.1:8000/base/contracts/${contractId}/payments/${paymentId}/mark_as_paid/`,
+        `http://lawbooking.lawbooking.site:8000/base/contracts/${contractId}/payments/${paymentId}/mark_as_paid/`,
         { didPayed: true }
       );
       refreshContracts();
@@ -80,7 +80,7 @@ const ContractList = () => {
   const deleteContract = async (contractId) => {
     try {
       await axios.delete(
-        `http://127.0.0.1:8000/base/contracts/${contractId}/`,
+        `http://lawbooking.lawbooking.site:8000/base/contracts/${contractId}/`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -97,22 +97,16 @@ const ContractList = () => {
   };
 
   const filteredContracts = (e) => {
-
     let updatedContracts = [];
     contracts.forEach((contract) => {
       const text = contract.name || "";
       const customerName = contract.customerName || "";
 
-      if (
-        e === "" ||
-        text.includes(e) ||
-        customerName.includes(e)
-      ) {
+      if (e === "" || text.includes(e) || customerName.includes(e)) {
         updatedContracts.push(contract);
       }
     });
     setFilteredContract(updatedContracts);
-
   };
 
   return (
@@ -126,7 +120,7 @@ const ContractList = () => {
         onChange={(e) => filteredContracts(e.target.value)}
       />
 
-      {filteredContract!==null
+      {filteredContract !== null
         ? filteredContract
             .sort(
               (a, b) =>
