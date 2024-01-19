@@ -11,12 +11,13 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import datetime
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+SECRET_KEY = os.environ['SECRET_KEY']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -25,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', '')]
 
 AUTH_USER_MODEL = 'base.User'
 
@@ -41,7 +42,8 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     "rest_framework_simplejwt.token_blacklist",
     'rest_framework',
-    "corsheaders",
+    'corsheaders',
+    'django_extensions',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
