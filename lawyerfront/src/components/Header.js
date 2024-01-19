@@ -77,7 +77,6 @@ export const Header = () => {
           ) : (
             <button className="linkButton" onClick={() => login()}>
               <span style={{ lineHeight: "20px" }}>
-                התחבר לGmail
                 <img
                   src="/Gmail.png"
                   alt="Gmail Logo"
