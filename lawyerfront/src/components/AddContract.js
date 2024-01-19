@@ -264,7 +264,7 @@ export const AddContract = ({ contracts }) => {
       });
       axios
         .post(
-          "http://lawbooking.site:8000/base/contracts/",
+          "https://lawbooking.site:8000/base/contracts/",
           {
             text: text,
             customerName: customerName,

@@ -21,7 +21,7 @@ const ContractList = () => {
 
       try {
         const response = await axios.get(
-          "http://lawbooking.site:8000/base/contracts/",
+          "https://lawbooking.site:8000/base/contracts/",
           {
             headers: {
               "Content-Type": "application/json",
@@ -49,7 +49,7 @@ const ContractList = () => {
   const refreshContracts = async () => {
     try {
       const response = await axios.get(
-        "http://lawbooking.site:8000/base/contracts/",
+        "https://lawbooking.site:8000/base/contracts/",
         {
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const ContractList = () => {
   const markPaymentAsPaid = async (contractId, paymentId) => {
     try {
       await axios.patch(
-        `http://lawbooking.site:8000/base/contracts/${contractId}/payments/${paymentId}/mark_as_paid/`,
+        `https://lawbooking.site:8000/base/contracts/${contractId}/payments/${paymentId}/mark_as_paid/`,
         { didPayed: true }
       );
       refreshContracts();
@@ -80,7 +80,7 @@ const ContractList = () => {
   const deleteContract = async (contractId) => {
     try {
       await axios.delete(
-        `http://lawbooking.site:8000/base/contracts/${contractId}/`,
+        `https://lawbooking.site:8000/base/contracts/${contractId}/`,
         {
           headers: {
             "Content-Type": "application/json",

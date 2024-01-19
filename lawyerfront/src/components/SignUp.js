@@ -14,7 +14,7 @@ export const SignUp = () => {
       alert("אנא הכנס את כל השדות");
     } else {
       axios
-        .post("http://lawbooking.site:8000/base/signup/", {
+        .post("https://lawbooking.site:8000/base/signup/", {
           username: username,
           password: password,
           email: email,
