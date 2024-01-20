@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import BackendUrl from "./BackendUrl";
 
 export const AddContract = ({ contracts }) => {
   const [numPayments, setNumPayments] = useState(2);
@@ -88,17 +89,14 @@ export const AddContract = ({ contracts }) => {
       };
 
       try {
-        const response = await axios.get(
-          "https://lawbooking.site/base/contracts/",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization:
-                "Bearer " +
-                JSON.parse(localStorage.getItem("Authorization")).access,
-            },
-          }
-        );
+        const response = await axios.get(`${BackendUrl()}/base/contracts/`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " +
+              JSON.parse(localStorage.getItem("Authorization")).access,
+          },
+        });
       } catch (error) {
         handleFetchError(error);
       }
@@ -298,7 +296,7 @@ export const AddContract = ({ contracts }) => {
       });
       axios
         .post(
-          "https://lawbooking.site:8000/base/contracts/",
+          `${BackendUrl()}/base/contracts/`,
           {
             text: text,
             customerName: customerName,

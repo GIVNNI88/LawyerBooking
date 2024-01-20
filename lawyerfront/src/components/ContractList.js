@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import BackendUrl from "./BackendUrl";
 
 const ContractList = () => {
   const [contracts, setContracts] = useState([]);
@@ -20,17 +21,14 @@ const ContractList = () => {
       };
 
       try {
-        const response = await axios.get(
-          "https://lawbooking.site:8000/base/contracts/",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization:
-                "Bearer " +
-                JSON.parse(localStorage.getItem("Authorization")).access,
-            },
-          }
-        );
+        const response = await axios.get(`${BackendUrl()}/base/contracts/`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " +
+              JSON.parse(localStorage.getItem("Authorization")).access,
+          },
+        });
         setContracts(response.data.contracts);
       } catch (error) {
         handleFetchError(error);
@@ -48,17 +46,14 @@ const ContractList = () => {
 
   const refreshContracts = async () => {
     try {
-      const response = await axios.get(
-        "https://lawbooking.site:8000/base/contracts/",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer " +
-              JSON.parse(localStorage.getItem("Authorization")).access,
-          },
-        }
-      );
+      const response = await axios.get(`${BackendUrl()}/base/contracts/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer " +
+            JSON.parse(localStorage.getItem("Authorization")).access,
+        },
+      });
       setContracts(response.data.contracts);
     } catch (error) {
       console.error("Error refreshing contracts: ", error);
@@ -68,7 +63,7 @@ const ContractList = () => {
   const markPaymentAsPaid = async (contractId, paymentId) => {
     try {
       await axios.patch(
-        `https://lawbooking.site:8000/base/contracts/${contractId}/payments/${paymentId}/mark_as_paid/`,
+        `${BackendUrl()}/base/contracts/${contractId}/payments/${paymentId}/mark_as_paid/`,
         { didPayed: true }
       );
       refreshContracts();
@@ -79,17 +74,14 @@ const ContractList = () => {
 
   const deleteContract = async (contractId) => {
     try {
-      await axios.delete(
-        `https://lawbooking.site:8000/base/contracts/${contractId}/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer " +
-              JSON.parse(localStorage.getItem("Authorization")).access,
-          },
-        }
-      );
+      await axios.delete(`${BackendUrl()}/base/contracts/${contractId}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer " +
+            JSON.parse(localStorage.getItem("Authorization")).access,
+        },
+      });
       refreshContracts();
     } catch (error) {
       console.error("Error deleting contract: ", error);

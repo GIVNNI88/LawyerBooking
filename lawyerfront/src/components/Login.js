@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
-
+import BackendUrl from "./BackendUrl";
 
 export const Login = () => {
- 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -26,7 +25,7 @@ export const Login = () => {
     username === "" || password === ""
       ? alert("!אנא הכנס נתונים")
       : axios
-          .post("https://lawbooking.site:8000/api/token/", {
+          .post(`${BackendUrl()}/api/token/`, {
             username: username,
             password: password,
           })
@@ -40,7 +39,7 @@ export const Login = () => {
             setPassword("");
             navigate("/");
             startTokenRefreshTimer();
-            login()
+            login();
           });
   }
 
@@ -51,7 +50,7 @@ export const Login = () => {
     refreshTokenInterval = setInterval(() => {
       axios
         .post(
-          "https://lawbooking.site:8000/api/token/refresh/",
+          `${BackendUrl()}/api/token/refresh/`,
           {
             refresh: JSON.parse(localStorage.getItem("Authorization")).refresh,
           },

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import BackendUrl from "./BackendUrl";
 
 export const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -14,7 +15,7 @@ export const SignUp = () => {
       alert("אנא הכנס את כל השדות");
     } else {
       axios
-        .post("https://lawbooking.site:8000/base/signup/", {
+        .post(`${BackendUrl()}/base/signup/`, {
           username: username,
           password: password,
           email: email,
