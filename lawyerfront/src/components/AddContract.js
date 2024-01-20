@@ -89,7 +89,7 @@ export const AddContract = ({ contracts }) => {
 
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/base/contracts/",
+          "https://lawbooking.site/base/contracts/",
           {
             headers: {
               "Content-Type": "application/json",
