@@ -1,12 +1,26 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+
 
 export const Login = () => {
+ 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   let refreshTokenInterval;
+
+  const saveUserLocalStorage = (codeResponse) => {
+    localStorage.setItem("user", JSON.stringify(codeResponse));
+  };
+
+  const login = useGoogleLogin({
+    overrideScope: true,
+    scope: "https://www.googleapis.com/auth/calendar",
+    onSuccess: (codeResponse) => saveUserLocalStorage(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
 
   function loginFun(e) {
     username === "" || password === ""
@@ -26,6 +40,7 @@ export const Login = () => {
             setPassword("");
             navigate("/");
             startTokenRefreshTimer();
+            login()
           });
   }
 
@@ -58,14 +73,13 @@ export const Login = () => {
 
   return (
     <div className="body">
-      <div>ברוכים הבאים</div>
       <div className="headLine">מערכת לניהול חוזים</div>
-      <div>מאפשרת אינטרקציה עם היומן האישי שלך</div>
-      <div>והחוזים/תשלומים של לקוחותיך</div>
+      <div className="subText">המערכת מאפשרת אינטרקציה בין היומן האישי שלך</div>
+      <div className="subText">לחוזים והתשלומים של הלקוחות שלך</div>
       <br />
       <br />
-
-      <div className="form-control">
+      <br />
+      <div>
         <label htmlFor="text">שם משתמש:</label>
         <input
           id="username"
@@ -75,7 +89,7 @@ export const Login = () => {
           placeholder="הכנס שם משתמש.."
         />
       </div>
-      <div className="form-control">
+      <div>
         <label htmlFor="text">סיסמה:</label>
         <input
           id="password"

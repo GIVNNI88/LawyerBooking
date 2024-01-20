@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -75,6 +75,38 @@ export const AddContract = ({ contracts }) => {
     return formattedDate;
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const handleFetchError = (error) => {
+        if (error.response && error.response.status === 401) {
+          alert("אין לך גישה, אנא התחבר");
+          navigate("/login");
+        } else {
+          alert("אין לך גישה, אנא התחבר");
+          navigate("/login");
+        }
+      };
+
+      try {
+        const response = await axios.get(
+          "http://127.0.0.1:8000/base/contracts/",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer " +
+                JSON.parse(localStorage.getItem("Authorization")).access,
+            },
+          }
+        );
+      } catch (error) {
+        handleFetchError(error);
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
+
   const handlTaxPayment = () => {
     const taxDate = calculateDateAfter30Days();
     let taxAmount = amount;
@@ -126,7 +158,9 @@ export const AddContract = ({ contracts }) => {
     let num_of_Payments = parseInt(event.target.value);
     setNumPayments(num_of_Payments);
   };
-  payments[0] = handlTaxPayment();
+  if (handlTaxPayment() === 0) {
+    payments[0] = handlTaxPayment();
+  }
   for (let i = 0; i < numPayments; i++) {
     forms.push(
       <div key={i}>
@@ -141,7 +175,7 @@ export const AddContract = ({ contracts }) => {
           />
         </div>
         <br />
-        {i !== 0 ? (
+        {i !== 0 || amount === 0 ? (
           <div>
             <label htmlFor={`date${i}`}>אנא בחר תאריך לתשלום</label>
             <input

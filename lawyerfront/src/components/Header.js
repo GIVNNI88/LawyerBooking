@@ -52,46 +52,34 @@ export const Header = () => {
     return () => clearInterval(intervalId);
   }, [login, refreshToken]);
 
-  const logOut = () => {
-    googleLogout();
-    setUser(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("Authorization");
-    navigate("/login");
-  };
-
   return (
     <div className="header">
       {isAuthenticated && (
         <>
           {user !== null ? (
-            <div>
-              <button className="linkButton" onClick={logOut}>
-                <img
-                  src="/google exit.png"
-                  alt="home Logo"
-                  style={{ width: "40px", height: "30px" }}
-                />
-              </button>
-            </div>
+            <div></div>
           ) : (
             <button className="linkButton" onClick={() => login()}>
               <span style={{ lineHeight: "20px" }}>
                 <img
-                  src="/Gmail.png"
+                  src="/Gmail.svg"
                   alt="Gmail Logo"
                   style={{
                     width: "30px",
-                    height: "25px",
+                    height: "30px",
                     verticalAlign: "middle",
-                    marginRight: "5px",
+                    marginRight: "-5px",
                   }}
                 />
               </span>
             </button>
           )}
           <Link className="linkButton" to="/contracts">
-            <img src="/file.png" alt="file Logo" style={{ width: "35px", height: "35px" }} />
+            <img
+              src="/file.png"
+              alt="file Logo"
+              style={{ width: "35px", height: "35px" }}
+            />
           </Link>
 
           <Link className="linkButton" to="/addContract">
@@ -102,11 +90,19 @@ export const Header = () => {
             />
           </Link>
           <Link className="linkButton" to="/">
-            <img src="/home.png" alt="home Logo" style={{ width: "35px", height: "35px" }} />
+            <img
+              src="/home.png"
+              alt="home Logo"
+              style={{ width: "35px", height: "35px" }}
+            />
           </Link>
 
           <button className="linkButton" onClick={logoutUser}>
-            <img src="/exit.png" alt="home Logo" style={{ width: "35px", height: "35px" }} />
+            <img
+              src="/exit.png"
+              alt="home Logo"
+              style={{ width: "35px", height: "35px" }}
+            />
           </button>
         </>
       )}

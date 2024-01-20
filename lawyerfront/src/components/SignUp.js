@@ -67,7 +67,7 @@ export const SignUp = () => {
         />
       </div>
 
-      <button className="btn" onClick={signUp}>
+      <button className="btn" style={{ width: "10%" }} onClick={signUp}>
         הרשם
       </button>
     </div>
