@@ -156,8 +156,8 @@ export const AddContract = ({ contracts }) => {
     let num_of_Payments = parseInt(event.target.value);
     setNumPayments(num_of_Payments);
   };
-  if (handlTaxPayment() === 0) {
-    payments[0] = handlTaxPayment();
+  if (handlTaxPayment(amount) !== 0) {
+    payments[0] = handlTaxPayment(amount);
   }
   for (let i = 0; i < numPayments; i++) {
     forms.push(
